@@ -1,0 +1,25 @@
+
+
+finish with the the charts
+delete selected
+don't add bulk action
+
+pages next:
+gallery  done
+users  (may be in the very last)
+monolith distributed authentication // PINNED
+setup sendgrid (signup, forgotPassword)
+dashboard (right after authentication)
+comments (may be in the very last)
+
+
+SUB:
+put all the admin page inside authentedAdminPage component       //done    
+remove Resolver from all try blocks and modify the catch log     //done
+client oauth signup form                                         //HERE
+admin authentication form                                        //HERE
+view count per article                                           //HERE
+comment component                                                //HERE
+
+
+

@@ -1,0 +1,21 @@
+.container {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  grid-template-areas: "big one two" "big three four";
+}
+.big {
+  grid-area: big;
+}
+
+.one {
+  grid-area: one;
+}
+.two {
+  grid-area: two;
+}
+.three {
+  grid-area: three;
+}
+.four {
+  grid-area: four;
+}

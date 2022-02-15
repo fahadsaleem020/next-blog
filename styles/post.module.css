@@ -1,0 +1,36 @@
+.container {
+  font-family: Quicksand;
+}
+.container h1,
+.container h2,
+.container h3,
+.container h4,
+.container h5,
+.container h6 {
+  font-weight: bolder;
+  color: #2d3748;
+
+  margin: 0.5rem auto;
+}
+.container h1 {
+  font-size: 34px;
+  margin: 0.5rem auto;
+}
+
+.container h2 {
+  font-size: 25.5px;
+}
+.container h3 {
+  font-size: 19.89px;
+}
+.container h4 {
+  font-size: 17px;
+}
+
+.container p {
+  font-size: 17px;
+  font-weight: 600;
+  color: #485568;
+  margin-bottom: 1rem;
+  letter-spacing: 0.02em;
+}
