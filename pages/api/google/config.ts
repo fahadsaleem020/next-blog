@@ -13,7 +13,7 @@ type CustomCallbackParams = Pick<
   "4"
 > & { res: Res };
 
-//callback
+//callback function
 const callback = async (params: CustomCallbackParams) => {
   const { res, "4": profile } = params;
 
@@ -49,7 +49,7 @@ const callback = async (params: CustomCallbackParams) => {
   const token = tokenGenerator.getAccessToken(payload, 300); // 5m to set new registration fields
   const sessionToken = tokenGenerator.getAccessToken(payload, 20); // auto login expires in 20 secs
 
-isNewUser.matchedCount
+  isNewUser.matchedCount
     ? res.redirect(`/setSessionPage?_token=${encodeURIComponent(sessionToken)}`)
     : res.redirect(`/completeSignup?_token=${encodeURIComponent(token)}`);
 };
