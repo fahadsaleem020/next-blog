@@ -9,7 +9,6 @@ const UpdateUser: FC = ({ children }) => {
   const setIsLoading = useUser(useCallback((state) => state.setIsLoading, []));
   const setIsOffline = useUser(useCallback((state) => state.setIsOffline, []));
   const setUser = useUser(useCallback((state) => state.setUser, []));
-  // const uniquePages = router.asPath.includes();
 
   useEffect(() => {
     const isAdminPage = router.asPath.includes("/admin");

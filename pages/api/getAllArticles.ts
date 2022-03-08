@@ -12,9 +12,6 @@ handler.use(parseForm).get(async (req: Req, res: Res) => {
   // client instance
   const { client, db } = await Resolver(connectToDatabase());
 
-  //query string;
-  const query = req.query;
-
   //articles collection;
   const ArticleCollection: Collection<Document> = client
     .db(dbName)

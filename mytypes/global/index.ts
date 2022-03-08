@@ -26,13 +26,9 @@ export declare type ImageList = {
   }[];
 };
 
-export declare type AppendType<type, MergeWith = 0> = MergeWith extends 0
-  ? {
-      [property in keyof type]: type[property];
-    }
-  : {
-      [property in keyof type]: type[property] | MergeWith;
-    };
+export declare type AppendType<type, MergeWith> = {
+  [property in keyof type]: type[property] | MergeWith;
+};
 
 export declare type ArticleType = {
   thumbNail: AppendType<Article["thumbNail"], null>;

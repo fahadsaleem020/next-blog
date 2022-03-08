@@ -24,7 +24,9 @@ import FormButton from "@components/defaults/formButton";
 
 const PasswordForm: FC<{
   setTitle: Dispatch<SetStateAction<string>>;
-  setActiveForm: Dispatch<SetStateAction<"loginForm" | "passwordForm">>;
+  setActiveForm: Dispatch<
+    SetStateAction<"loginForm" | "passwordForm" | "signupForm">
+  >;
 }> = ({ setTitle, setActiveForm }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [resMessage, setResMessage] = useState<string | null>(null);
@@ -110,7 +112,7 @@ const PasswordForm: FC<{
                       {errors.email}
                     </FormErrorMessage>
                     <FormHelperText>
-                      You&apose;ll get an email with a reset link
+                      You&apos;ll get an email with a reset link
                     </FormHelperText>
                   </FormControl>
                 )}

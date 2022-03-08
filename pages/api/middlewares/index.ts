@@ -2,11 +2,14 @@ import { Req, Res, ResHandler, statusCodeFor } from "@Types/api";
 import { NextHandler } from "next-connect";
 import formidable from "formidable";
 import { object, string } from "yup";
-import { userData, validateOrGenerateSessionId } from "pages/api/utils/index";
+import {
+  isGenericCookieEmpty,
+  userData,
+  validateOrGenerateSessionId,
+} from "pages/api/utils/index";
 import {
   getParsedCookies,
   Crypto,
-  isCookieEmpty,
   validateToken,
   Resolver,
 } from "@utils/index";
@@ -81,7 +84,7 @@ export const validateLoginForm = async (
 // modified
 export const isUserLoggedIn = async (req: Req, res: Res, next: NextHandler) => {
   const { sessionId, _token } = getParsedCookies(req);
-  if (isCookieEmpty(req, "_token")) return next();
+  if (isGenericCookieEmpty(req, "_token")) return next();
   const { email } = await Resolver<{ email: string }>(
     validateToken.refreshToken(Crypto.decrypt(<string>_token))
   );

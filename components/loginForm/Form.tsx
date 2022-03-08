@@ -32,19 +32,23 @@ import {
   useMediaQuery,
   HStack,
   Button,
+  Text,
 } from "@chakra-ui/react";
 import { signin, adminSignin } from "@components/authMethods";
 import { useUser } from "@components/stores";
-import { useRouter } from "next/router";
 import { FcGoogle } from "react-icons/fc";
 import NLink from "next/link";
+
 const SigninForm: FC<{
   setTitle: Dispatch<SetStateAction<string>>;
-  setActiveForm: Dispatch<SetStateAction<"loginForm" | "passwordForm">>;
+  setActiveForm: Dispatch<
+    SetStateAction<"loginForm" | "passwordForm" | "signupForm">
+  >;
   type: "admin" | "client";
-}> = ({ setTitle, setActiveForm, type }) => {
+  withSocial?: boolean;
+  withAdminSignup?: boolean;
+}> = ({ setTitle, setActiveForm, type, withSocial, withAdminSignup }) => {
   //
-  const router = useRouter();
   const at405 = useMediaQuery(["(max-width: 405px)"]);
   const color = useColorModeValue("blue.600", "blue.300");
   setTitle("Sign in");
@@ -100,7 +104,6 @@ const SigninForm: FC<{
         duration: 5000,
         isClosable: true,
       });
-      if (user?.role === "admin") router.replace("/admin");
     } else {
       setIsSubmitting(false);
       toast({
@@ -152,23 +155,37 @@ const SigninForm: FC<{
                 )}
               </Field>
               <SubmitButton submiting={isSubmitting} />
-              <NLink href={"/api/google"}>
-                <HStack
-                  flexWrap={at405[0] && ("wrap" as any)}
-                  spacing={at405[0] ? 0 : "auto"}
-                >
-                  <Button
-                    colorScheme={"blue"}
-                    leftIcon={<FcGoogle size={22} />}
-                    variant="outline"
-                    // rounded="full"
-                    w="full"
-                    _focus={{ outline: "none" }}
+              {withSocial && (
+                <NLink href={"/api/google"}>
+                  <HStack
+                    flexWrap={at405[0] && ("wrap" as any)}
+                    spacing={at405[0] ? 0 : "auto"}
                   >
-                    Continue with Google
-                  </Button>
-                </HStack>
-              </NLink>
+                    <Button
+                      colorScheme={"blue"}
+                      leftIcon={<FcGoogle size={22} />}
+                      variant="outline"
+                      w="full"
+                      _focus={{ outline: "none" }}
+                    >
+                      Continue with Google
+                    </Button>
+                  </HStack>
+                </NLink>
+              )}
+
+              {withAdminSignup && (
+                <Text textAlign={"center"}>
+                  Not yet an admin?
+                  <Link
+                    color={color}
+                    ml={2}
+                    onClick={() => setActiveForm("signupForm")}
+                  >
+                    SignUp
+                  </Link>
+                </Text>
+              )}
             </Stack>
           </Form>
         )}

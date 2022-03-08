@@ -88,13 +88,14 @@ export const changePassword = async (values: {
   ).data;
 };
 
-export const signup = async (values: {
-  csrftoken: string;
-  email: string;
-  password: string;
-  remember: boolean;
-  isManual: boolean;
-}): Promise<ApiResponse> =>
+export const signup = async (
+  values: {
+    csrftoken: string;
+    email: string;
+    password: string;
+    remember: boolean;
+  } & DeviceInfoType
+): Promise<ApiResponse & { payload: Payload }> =>
   await (
     await axios.post("/api/signup/", values)
   ).data;
@@ -112,7 +113,7 @@ export const updateSignup = async (
 
 export const setSession = async (
   token: string,
-  values: DeviceInfoType
+  values: DeviceInfoType & { [key: string]: any }
 ): Promise<ApiResponse> =>
   await (
     await axios.post("/api/setSession", {

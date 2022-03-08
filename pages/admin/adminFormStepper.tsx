@@ -1,15 +1,15 @@
-import { useState, FC, Dispatch, SetStateAction } from "react";
+import { useState } from "react";
 import LoginForm from "@components/loginForm/Form";
 import { Box } from "@chakra-ui/react";
 import ForgotPasswordForm from "@components/passwordForm/Form";
+import SignupForm from "@components/signupForm/Form";
 import UnAuthenticatedPage from "@components/unAuthenticatedPage";
 
-const AdminFormStepper: FC<{
-  setFormTitle: Dispatch<SetStateAction<string>>;
-}> = ({ setFormTitle }) => {
-  const [activeForm, setActiveForm] = useState<"loginForm" | "passwordForm">(
-    "loginForm"
-  );
+const AdminFormStepper = () => {
+  const [_, setFormTitle] = useState<string>("loginForm");
+  const [activeForm, setActiveForm] = useState<
+    "loginForm" | "passwordForm" | "signupForm"
+  >("loginForm");
 
   return (
     <UnAuthenticatedPage loader="..loading" redirectIfOnline="/admin">
@@ -19,6 +19,8 @@ const AdminFormStepper: FC<{
             case "loginForm":
               return (
                 <LoginForm
+                  withAdminSignup={true}
+                  withSocial={false}
                   setTitle={setFormTitle}
                   setActiveForm={setActiveForm}
                   type="admin"
@@ -27,6 +29,13 @@ const AdminFormStepper: FC<{
             case "passwordForm":
               return (
                 <ForgotPasswordForm
+                  setTitle={setFormTitle}
+                  setActiveForm={setActiveForm}
+                />
+              );
+            case "signupForm":
+              return (
+                <SignupForm
                   setTitle={setFormTitle}
                   setActiveForm={setActiveForm}
                 />

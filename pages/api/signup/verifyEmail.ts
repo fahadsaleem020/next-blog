@@ -34,6 +34,7 @@ handler
     const cookie = getParsedCookies(req);
     const sessionId: string = validateOrGenerateSessionId(cookie.sessionId);
 
+    //client instance;
     const dbClient = await (
       await Resolver(connectToDatabase(), {
         message: "SERVICE_UNAVAILABLE",
@@ -51,11 +52,13 @@ handler
     >(req);
 
     //token data
-    const { authTypes, email, isManual, photos, userNames, verified } =
-      await Resolver(validateToken.accessToken<OAuthPayload>(token), {
+    const { authTypes, email, photos, userNames, verified } = await Resolver(
+      validateToken.accessToken<OAuthPayload>(token),
+      {
         statusCode: 403,
         message: "session expired",
-      });
+      }
+    );
 
     //user doc
     const userDoc: Omit<userModel, "password"> = {
@@ -100,6 +103,7 @@ handler
 
     //payload
     const payload: Payload = {
+      userId: insertUser.insertedId.toString(),
       email: email,
       photo: photos[0][authTypes[0]]!,
       role: "client",
@@ -114,6 +118,7 @@ handler
     const isCookieSecure =
       process.env.NODE_ENV === "development" ? false : true;
 
+    //default cookie options;
     const cookieOptions: CookieOptions<"options"> = {
       httpOnly: true,
       path: "/",
@@ -122,6 +127,7 @@ handler
       sameSite: true,
     };
 
+    //insertion acknowledgement;
     if (insertUser.acknowledged && insertSession.acknowledged) {
       setCookie(
         res,
@@ -142,6 +148,7 @@ handler
       });
     }
 
+    //failed response;
     res.json(<ResHandler<"FORBIDDEN">>{
       message: "FORBIDDEN",
       status: false,

@@ -48,7 +48,7 @@ import { useArticle } from "@components/stores";
 import { getAccessToken } from "@components/authMethods";
 import SharedModal from "@components/modal";
 import { Article } from "@models/index";
-import { ApiResponse, AppendType, UploadArticleResult } from "@Types/global";
+import { ApiResponse, UploadArticleResult } from "@Types/global";
 import { useTags } from "@withSWR/tags";
 import { useSingleArticle } from "@withSWR/singleArticle";
 import MetaComponent from "@components/meta/metaComponent";
@@ -485,7 +485,7 @@ const Editable = () => {
     setIsPublishing(true);
     const { slug, tags, status, _id } = articleStore;
     const body = editor.current?.getText();
-    const thumb = articleStore.thumbNail as AppendType<Article["thumbNail"]>;
+    const thumb = articleStore.thumbNail as Article["thumbNail"];
     const isSlug = slug || null;
     const isThumb = !Object.values(thumb).some(
       (v) => v === null || v === undefined || (v as string).length === 0
@@ -774,7 +774,7 @@ const NonEditable = () => {
     setIsPublishing(true);
     const { slug, tags, status, _id } = articleStore;
     const body = editor.current?.getText();
-    const thumb = articleStore.thumbNail as AppendType<Article["thumbNail"]>;
+    const thumb = articleStore.thumbNail as Article["thumbNail"];
     const isSlug = slug || null;
     const isThumb = !Object.values(thumb).some(
       (v) => v === null || v === undefined || (v as string).length === 0

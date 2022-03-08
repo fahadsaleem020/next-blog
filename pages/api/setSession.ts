@@ -20,7 +20,7 @@ import {
   preventGetRequest,
 } from "@middlewares/index";
 import { connectToDatabase } from "@config/client.config";
-import { Collection, Document } from "mongodb";
+import { Collection, Document, WithId } from "mongodb";
 import {
   LoginFormModel,
   OAuthPayload,
@@ -52,7 +52,7 @@ handler
     >(req);
 
     //token data
-    const { email, userNames, photos, authTypes, isManual } = await Resolver(
+    const { email, userNames, photos, authTypes } = await Resolver(
       validateToken.accessToken<OAuthPayload>(token),
       {
         statusCode: 403,
@@ -92,13 +92,13 @@ handler
       : null;
 
     //finding user role from users collection;
-    const userRole = await Resolver(
-      findOneOperation<userModel>(
+    const user = await Resolver(
+      findOneOperation<WithId<userModel>>(
         usersCollection,
         {
           email: email,
         },
-        { projection: { _id: 0, role: 1 } }
+        { projection: { role: 1 } }
       )
     );
 
@@ -113,13 +113,14 @@ handler
     };
 
     const payload: Payload = {
+      userId: user?._id.toString(),
       username: userNames?.map(
         (val) => val[authTypes?.map((val) => val)[0]]
       )[0]!,
       photo:
         photos?.map((val) => val[authTypes?.map((val) => val)[0]])[0] ?? null,
       email: email,
-      role: userRole?.role ?? "client",
+      role: user?.role ?? "client",
     };
 
     const refreshToken = Crypto.encrypt(
@@ -135,7 +136,7 @@ handler
               refreshToken,
               {
                 ...cookieOptions,
-                maxAge: !isManual ? 31556952 : 864000, // 1 year or 10 days
+                maxAge: 31556952, // 1 year or 10 days
               },
             ],
             ["sessionId", sessionId, cookieOptions]

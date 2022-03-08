@@ -6,9 +6,9 @@ import ForgotPasswordForm from "@components/passwordForm/Form";
 const ClientFormStepper: FC<{
   setFormTitle: Dispatch<SetStateAction<string>>;
 }> = ({ setFormTitle }) => {
-  const [activeForm, setActiveForm] = useState<"loginForm" | "passwordForm">(
-    "loginForm"
-  );
+  const [activeForm, setActiveForm] = useState<
+    "loginForm" | "passwordForm" | "signupForm"
+  >("loginForm");
 
   return (
     <Box maxW="xl">
@@ -17,6 +17,7 @@ const ClientFormStepper: FC<{
           case "loginForm":
             return (
               <LoginForm
+                withSocial={true}
                 setTitle={setFormTitle}
                 setActiveForm={setActiveForm}
                 type="client"

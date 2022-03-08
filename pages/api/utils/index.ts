@@ -1,5 +1,5 @@
 import { LoginFormModel } from "@models/index";
-import { CookieList, CookieOptions, CookieType, Req, Res } from "@Types/api";
+import { CookieOptions, CookieType, Req, Res } from "@Types/api";
 import { validate, v4 as uuid } from "uuid";
 import { serialize } from "cookie";
 import { sign, verify } from "jsonwebtoken";
@@ -15,6 +15,7 @@ import {
   UpdateResult,
   WithId,
   Document,
+  DeleteResult,
 } from "mongodb";
 import formidable from "formidable";
 
@@ -83,23 +84,10 @@ export const getGenericCookie = <T extends string>(
     [x in T]: string;
   });
 
-export const isCookieEmpty = (req: Req, cookie: CookieList) => {
-  return cookie === "_token" || cookie === "sessionId"
-    ? req.cookies?._token?.length
-      ? false
-      : true
-    : req.cookies?.sessionId?.length
-    ? false
-    : true;
-};
-
 // modified
 export const isGenericCookieEmpty = <T extends string>(req: Req, cookie: T) => {
-  return req.cookies && req.cookies[cookie] ? true : false;
+  return req.cookies && req.cookies[cookie] ? false : true;
 };
-
-export const validateSessionId = (sessionId: string | boolean): boolean =>
-  sessionId && validate(<string>sessionId) ? true : false;
 
 export const validateOrGenerateSessionId = (sessionId: string | boolean) =>
   sessionId && validate(<string>sessionId) ? <string>sessionId : uuid();
@@ -160,6 +148,18 @@ export const findOneOperation = async <T>(
   queryfilter: Filter<T>,
   options?: FindOptions<T>
 ): Promise<T | null> => await collection.findOne(<any>queryfilter, options);
+
+export const deleteOneOperation = async <T>(
+  collection: Collection<Document>,
+  queryfilter: Filter<T>
+): Promise<DeleteResult> =>
+  await collection.deleteOne(<Filter<Document>>queryfilter);
+
+export const deleteOperation = async <T>(
+  collection: Collection<Document>,
+  queryfilter: Filter<T>
+): Promise<DeleteResult> =>
+  await collection.deleteMany(<Filter<Document>>queryfilter);
 
 export const findOperation = async <T>(
   collection: Collection<Document>,

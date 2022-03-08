@@ -42,7 +42,6 @@ const callback = async (params: CustomCallbackParams) => {
     authTypes: ["google"],
     userNames: [{ google: name }],
     photos: [{ google: picture }],
-    isManual: false,
     verified: email_verified === "true",
   };
 

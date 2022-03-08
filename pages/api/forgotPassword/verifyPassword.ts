@@ -20,12 +20,14 @@ handler
   .use(parseForm)
   .use(preventGetRequest)
   .post(async (req: Req, res: Res) => {
+    //users collection;
     const usersCollection: Collection<Document> = await (
       await Resolver(connectToDatabase())
     ).client
       .db(dbName)
       .collection("users");
 
+    //form data
     const { password, token } = userData.genericFormData<
       Pick<userModel, "email" | "password"> & { token: string }
     >(req);

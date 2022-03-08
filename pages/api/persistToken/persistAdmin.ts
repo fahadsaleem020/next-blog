@@ -9,10 +9,10 @@ import {
   tokenGenerator,
   revokeLocalSession,
   updateOneOperation,
-  isCookieEmpty,
   Resolver,
   validateOrGenerateSessionId,
   isJson,
+  isGenericCookieEmpty,
 } from "@utils/index";
 import { connectToDatabase, dbName } from "@config/client.config";
 import { Collection, Document } from "mongodb";
@@ -28,7 +28,10 @@ handler
     //
     const { _token, sessionId: SessionID } = getParsedCookies(req);
 
-    if (isCookieEmpty(req, "_token") || isCookieEmpty(req, "sessionId"))
+    if (
+      isGenericCookieEmpty(req, "_token") ||
+      isGenericCookieEmpty(req, "sessionId")
+    )
       return await Resolver(
         Promise.reject({ message: "empty session/token" }),
         {

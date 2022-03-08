@@ -21,6 +21,13 @@ export declare interface sessionModel {
   sessionId: string;
 }
 
+export declare interface SignupFormModel {
+  email: string;
+  password: string;
+  remember: boolean;
+  confirmPassword: string;
+}
+
 export declare interface LoginFormModel {
   email: string;
   password: string;
@@ -29,16 +36,20 @@ export declare interface LoginFormModel {
 }
 
 export declare interface Payload {
+  userId?: string;
   username: string;
   photo: string | null;
   email: string;
   role: userModel["role"];
+  iat?: number;
+  exp?: number;
 }
 
 export declare type OAuthPayload = Pick<
   userModel,
   "authTypes" | "userNames" | "email" | "photos" | "verified"
-> & { isManual: boolean };
+>;
+// & { isManual: boolean };
 
 export declare interface Article {
   thumbNail: { title: string; description: string; headerPic: File };
@@ -57,57 +68,21 @@ export declare interface ArticleDoc extends Article {
 }
 
 export declare interface Comments {
-  _id: ObjectID;
+  userId?: string;
+  postId: string;
+  isRoot: boolean;
   by: string;
-  photo: string;
-  postid: ObjectID; //referenced
-  body: string;
-  createdAt: Date;
-  updatedAt: Date;
-  likes: number;
-  replies: Replies[];
-}
-
-interface Replies {
-  by: string;
+  identity: string;
   photo: string;
   body: string;
   createdAt: Date;
   updatedAt: Date;
   likes: number;
-  replies?: Replies[];
+  replyCount?: number;
 }
 
-//test model
-const comment: Comments = {
-  _id: new ObjectId(),
-  postid: new ObjectId(), //referenced to article
-  by: "person",
-  photo: "person's photo url",
-  body: "some comment content",
-  createdAt: new Date(),
-  updatedAt: new Date(),
-  likes: 20,
-  replies: [
-    {
-      by: "person 2",
-      photo: "person's photo url",
-      body: "reply to content",
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      likes: 30,
-      replies: [
-        {
-          by: "person 3",
-          photo: "person's photo url",
-          body: "reply to content",
-          createdAt: new Date(),
-          updatedAt: new Date(),
-          likes: 30,
-        },
-      ],
-    },
-  ],
+export declare type Replies = Comments & {
+  parentId: string; //referenced
 };
 
 export declare interface UserStoreInterface {

@@ -37,8 +37,6 @@ import { FiSearch } from "react-icons/fi";
 import { MdKeyboardArrowRight, MdKeyboardArrowLeft } from "react-icons/md";
 import { HiViewGridAdd } from "react-icons/hi";
 import { CgChevronDoubleLeft, CgChevronDoubleRight } from "react-icons/cg";
-import AuthenticatedPage from "@components/authenticatedPage";
-import { LoaderContainer, LoaderBody } from "@components/loader";
 import Moment from "react-moment";
 import { useArticles } from "@withSWR/articles";
 import SharedModal from "@components/modal";

@@ -42,6 +42,7 @@ const UserProfile = () => {
   const setIsLoading = useUser(useCallback((state) => state.setIsLoading, []));
   const setIsOffline = useUser(useCallback((state) => state.setIsOffline, []));
   const user = useUser(useCallback((state) => state.user, []))!;
+  const setUser = useUser(useCallback((state) => state.setUser, []))!;
 
   const toast = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -52,6 +53,7 @@ const UserProfile = () => {
       setIsSubmitting(false);
       setIsLoading(true);
       setIsOffline(true);
+      setUser(null);
     } else {
       toast({
         title: "Retrying...",

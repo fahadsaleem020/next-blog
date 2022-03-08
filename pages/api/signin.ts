@@ -110,6 +110,7 @@ handler
         );
 
     const payload: Payload = {
+      userId: user._id?.toString(),
       username: user.userNames?.map((val) => val.manual)[0]!,
       photo: user.photos?.map((val) => val.manual)[0] ?? null,
       email: user.email!,

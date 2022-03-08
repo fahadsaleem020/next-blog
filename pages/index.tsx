@@ -27,7 +27,9 @@ const Index: NextPage<{ popular: ArticleDoc[]; recently: ArticleDoc[] }> = ({
 
 export const getStaticProps: GetStaticProps = async () => {
   // client instance
-  const { client, db } = await Resolver(connectToDatabase());
+  const { client, db } = await Resolver(connectToDatabase(), {
+    message: "Error making connection to database",
+  });
 
   //articles collection;
   const ArticleCollection: Collection<Document> = client
