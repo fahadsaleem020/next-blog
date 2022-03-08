@@ -49,7 +49,7 @@ const PostPage: NextPage<{ article: Required<MergeId<ArticleDoc>> }> = ({
 
   return (
     <Container maxW="container.lg" className={styles.container}>
-      {/* {articleBody} */}
+      {articleBody}
       <EmojiProvider>
         <PostWrapper article={article} data={data} />
       </EmojiProvider>
