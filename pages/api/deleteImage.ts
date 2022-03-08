@@ -7,12 +7,8 @@ import {
   validateToken,
   Crypto,
 } from "@utils/index";
-import {
-  preventGetRequest,
-  parseFormWithFiles,
-  parseForm,
-} from "@middlewares/index";
-import { v2 as cloudinary, DeleteApiResponse } from "cloudinary";
+import { preventGetRequest, parseForm } from "@middlewares/index";
+import { v2 as cloudinary } from "cloudinary";
 import { ImageList } from "@Types/global";
 
 const cd = cloudinary.config({

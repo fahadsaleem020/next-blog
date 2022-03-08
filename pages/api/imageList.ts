@@ -1,4 +1,4 @@
-import { Req, Res, statusCodeFor } from "@Types/api";
+import { Req, Res } from "@Types/api";
 import { PageConfig } from "next";
 import { connectHandler, Resolver } from "@utils/index";
 import { v2 as cloudinary, ResourceApiResponse } from "cloudinary";
@@ -6,9 +6,9 @@ import { v2 as cloudinary, ResourceApiResponse } from "cloudinary";
 //put the sdk credentials in enviroment
 // middlewares
 const cd = cloudinary.config({
-  cloud_name: "dmoh4xaph",
-  api_key: "744285782813594",
-  api_secret: "hqjsqktQP2xj_c6e62YqVV2RyGM",
+  cloud_name: process.env.cloud_name!,
+  api_key: process.env.api_key!,
+  api_secret: process.env.api_secret!,
   secure: true,
 });
 

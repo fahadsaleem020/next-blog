@@ -16,9 +16,9 @@ import { v2 as cloudinary } from "cloudinary";
 
 // put is in enviroment
 const cd = cloudinary.config({
-  cloud_name: "dmoh4xaph",
-  api_key: "744285782813594",
-  api_secret: "hqjsqktQP2xj_c6e62YqVV2RyGM",
+  cloud_name: process.env.cloud_name!,
+  api_key: process.env.api_key!,
+  api_secret: process.env.api_secret!,
   secure: true,
 });
 
