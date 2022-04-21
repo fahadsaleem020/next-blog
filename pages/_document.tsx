@@ -14,7 +14,7 @@ class MyDocument extends Document {
 
   render() {
     return (
-      <Html>
+      <Html> 
         <Head>
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link
@@ -26,6 +26,7 @@ class MyDocument extends Document {
             href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap"
             rel="stylesheet"
           ></link>
+          <meta name="google-site-verification" content="I81FHF1ZouR4oLYaiF7Berx_DPdqAGO6uK4tpHuS7Pg" />
         </Head>
         <body>
           <Main />
